@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
+    <title>Document</title>
+    <style>
+        #cal_container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+        }
+        .cal_nav {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 30px;
+        }
+        .date_box{
+            width: 600px;
+            height: 500px;
+
+        }
+        .days, 
+        .dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="cal_container">
+        <header>
+            <h2 class="cur_time"></h2>
+        </header>
+        <div class="cal_nav">
+            <button class="nav-btn go-prev">&lt;</button>
+            <div class="nav_today">Today</div>
+            <button class="nav-btn go-next">&gt;</button>
+        </div>
+        <div class="date_box">
+            <div class="days">
+                <div class="day">SUN</div>
+                <div class="day">TUE</div>
+                <div class="day">WED</div>
+                <div class="day">THU</div>
+                <div class="day">FRI</div>
+                <div class="day">SAT</div>
+                <div class="day">MON</div>
+              </div>
+              <div class="dates"></div>
+        </div>
+    </div>
+    
+    <script>
+        const today = new Date();
+        //요일 월 일 년 시간 순으로 오늘 날짜를 구하고 
+        //Thu Jan 26 2023 10:25:07 GMT+0900 (한국 표준시)
+        const thisYear = today.getFullYear();
+        const thisMonth = today.getMonth();
+        const thisDate = today.getDate();
+
+        const prevLastData = new Date(thisYear, thisMonth, 0);
+        //년월일 0일은? 없으니까 지난달 마지막날을 찾아준다. 
+        const thisLastData = new Date(thisYear, thisMonth +1,0)
+
+        //지난달 마지막 날짜
+        const prevLastDate = prevLastData.getDate();
+        //지난달 마지막 요일 
+        const prevLastDay = prevLastData.getDay();
+        //이번달 마지막 날짜 
+        const thisLastDate = thisLastData.getDate();
+        //이번달 마지막 요일 
+        const thisLastDay = thisLastData.getDay();
+
+        document.querySelector(".cur_time").textContent = `${thisYear}년 ${thisMonth+1}월`;
+        document.querySelector(".nav_today").textContent = `${thisMonth+1}월`;
+
+        const calendar = document.querySelector('.dates');
+        //calendar.innerHTML = "calendar"
+        for(let i =1; i <= thisLastDate; i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="cur_day">' + i + '</div>'
+        }
+    </script>
+</body>
+</html>
